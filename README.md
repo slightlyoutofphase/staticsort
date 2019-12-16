@@ -11,6 +11,8 @@ Contributions/suggestions/etc. very welcome!
 
 **Minimum supported Rust version:** due to the use of unstable const fn features, this is a nightly-only crate at the moment.
 
+Fully `#![no_std]` compatible by default.
+
 A basic usage example:
 
 ```rust

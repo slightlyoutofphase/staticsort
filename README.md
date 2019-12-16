@@ -23,7 +23,7 @@ static Y: [f64; 12] = [
 ];
 
 // The macro takes the following parameters in the order they're listed:
-// type to sort, index to start at, index to end at, total length of the array, name of existing
+// type to sort, index to start at, index to end at, total array length, name of existing
 // const or static array variable.
 
 // Sort all of X:

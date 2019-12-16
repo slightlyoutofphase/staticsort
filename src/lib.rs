@@ -4,27 +4,31 @@
 macro_rules! staticsort {
   ($type:ty, $low:expr, $high:expr, $len:expr, $values:expr) => {{
     #[inline(always)]
-    const fn static_sort(values: [$type; $len], mut low: isize, mut high: isize) -> [$type; $len] {
+    const fn static_sort(
+      mut values: [$type; $len],
+      mut low: isize,
+      mut high: isize,
+    ) -> [$type; $len]
+    {
       if high - low <= 0 {
         return values;
       }
-      let mut res = values;
       loop {
         let mut i = low;
         let mut j = high;
-        let p = res[(low + ((high - low) >> 1)) as usize];
+        let p = values[(low + ((high - low) >> 1)) as usize];
         loop {
-          while p > res[i as usize] {
+          while p > values[i as usize] {
             i += 1;
           }
-          while p < res[j as usize] {
+          while p < values[j as usize] {
             j -= 1;
           }
           if i <= j {
             if i != j {
-              let q = res[i as usize];
-              res[i as usize] = res[j as usize];
-              res[j as usize] = q;
+              let q = values[i as usize];
+              values[i as usize] = values[j as usize];
+              values[j as usize] = q;
             }
             i += 1;
             j -= 1;
@@ -35,12 +39,12 @@ macro_rules! staticsort {
         }
         if j - low < high - i {
           if low < j {
-            res = static_sort(res, low, j);
+            values = static_sort(values, low, j);
           }
           low = i;
         } else {
           if i < high {
-            res = static_sort(res, i, high)
+            values = static_sort(values, i, high)
           }
           high = j;
         }
@@ -48,7 +52,7 @@ macro_rules! staticsort {
           break;
         }
       }
-      res
+      values
     }
     static_sort($values, $low, $high)
   };};

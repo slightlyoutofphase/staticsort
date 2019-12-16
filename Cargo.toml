@@ -1,0 +1,15 @@
+[package]
+name = "staticsort"
+description = "Implements a macro providing a compile-time quicksort function for arrays of any type and length."
+repository = "https://github.com/slightlyoutofphase/staticsort"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+version = "0.1.0"
+authors = ["SlightlyOutOfPhase <slightlyoutofphase@gmail.com>"]
+keywords = ["sort", "array", "quicksort", "sorting", "ord"]
+categories = ["data-structures", "no-std", "algorithms"]
+edition = "2018"
+include = ["Cargo.toml", "rustfmt.toml", "src/**/*.rs", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
+
+[badges.maintenance]
+status = "actively-developed"

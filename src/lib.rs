@@ -6,57 +6,62 @@
 #[macro_export]
 macro_rules! staticsort {
   ($type:ty, $low:expr, $high:expr, $len:expr, $values:expr) => {{
-    #[inline(always)]
-    const fn static_sort(
-      mut values: [$type; $len],
-      mut low: isize,
-      mut high: isize,
-    ) -> [$type; $len]
-    {
-      if high - low <= 0 {
-        return values;
-      }
-      loop {
-        let mut i = low;
-        let mut j = high;
-        let p = values[(low + ((high - low) >> 1)) as usize];
-        loop {
-          while p > values[i as usize] {
-            i += 1;
+    match $len {
+      0 => $values,
+      _ => {
+        #[inline(always)]
+        const fn static_sort(
+          mut values: [$type; $len],
+          mut low: isize,
+          mut high: isize,
+        ) -> [$type; $len]
+        {
+          if high - low <= 0 {
+            return values;
           }
-          while p < values[j as usize] {
-            j -= 1;
-          }
-          if i <= j {
-            if i != j {
-              let q = values[i as usize];
-              values[i as usize] = values[j as usize];
-              values[j as usize] = q;
+          loop {
+            let mut i = low;
+            let mut j = high;
+            let p = values[(low + ((high - low) >> 1)) as usize];
+            loop {
+              while p > values[i as usize] {
+                i += 1;
+              }
+              while p < values[j as usize] {
+                j -= 1;
+              }
+              if i <= j {
+                if i != j {
+                  let q = values[i as usize];
+                  values[i as usize] = values[j as usize];
+                  values[j as usize] = q;
+                }
+                i += 1;
+                j -= 1;
+              }
+              if i > j {
+                break;
+              }
             }
-            i += 1;
-            j -= 1;
+            if j - low < high - i {
+              if low < j {
+                values = static_sort(values, low, j);
+              }
+              low = i;
+            } else {
+              if i < high {
+                values = static_sort(values, i, high)
+              }
+              high = j;
+            }
+            if low >= high {
+              break;
+            }
           }
-          if i > j {
-            break;
-          }
+          values
         }
-        if j - low < high - i {
-          if low < j {
-            values = static_sort(values, low, j);
-          }
-          low = i;
-        } else {
-          if i < high {
-            values = static_sort(values, i, high)
-          }
-          high = j;
-        }
-        if low >= high {
-          break;
-        }
+        static_sort($values, $low, $high)
       }
-      values
     }
-    static_sort($values, $low, $high)
   };};
 }

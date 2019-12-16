@@ -1,0 +1,12 @@
+language: rust
+
+rust:
+  - nightly
+
+jobs:
+  include:
+  - os: linux
+    dist: bionic
+
+script:
+  - cargo run --example main

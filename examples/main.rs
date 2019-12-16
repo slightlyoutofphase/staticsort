@@ -1,19 +1,3 @@
-[![Latest Version]][crates.io] ![Rustc Version nightly]
-
-[Latest Version]: https://img.shields.io/crates/v/staticsort.svg
-[crates.io]: https://crates.io/crates/staticsort
-[Rustc Version nightly]: https://img.shields.io/badge/rustc-nightly-lightgray.svg
-[![Build Status](https://travis-ci.com/slightlyoutofphase/staticsort.svg?branch=master)](https://travis-ci.com/slightlyoutofphase/staticsort)
-
-Implements a macro providing a compile-time quicksort function for arrays of any type and length.
-
-Contributions/suggestions/etc. very welcome!
-
-**Minimum supported Rust version:** due to the use of unstable const fn features, this is a nightly-only crate at the moment.
-
-A basic usage example:
-
-```rust
 #![feature(const_fn, const_if_match, const_loop)]
 
 use staticsort::staticsort;
@@ -42,9 +26,3 @@ fn main() {
   // Prints: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   println!("ZZ: {:?}", ZZ);
 }
-```
-
-**License:**
-
-Licensed under either the <a href="LICENSE-MIT">MIT license</a> or version 2.0 of the <a href="LICENSE-APACHE">Apache License</a>. Your choice as to which!
-Any source code contributions will be dual-licensed in the same fashion.

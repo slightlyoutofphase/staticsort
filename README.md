@@ -5,7 +5,7 @@
 [Rustc Version nightly]: https://img.shields.io/badge/rustc-nightly-lightgray.svg
 [![Build Status](https://travis-ci.com/slightlyoutofphase/staticsort.svg?branch=master)](https://travis-ci.com/slightlyoutofphase/staticsort)
 
-Implements a macro providing a compile-time quicksort function for arrays of any type and length.
+Implements a macro providing a compile-time quicksort function for arrays of any length, containing any Copy type that derives or implements PartialOrd.
 
 Contributions/suggestions/etc. very welcome!
 

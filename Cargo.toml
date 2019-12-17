@@ -1,6 +1,6 @@
 [package]
 name = "staticsort"
-description = "Implements a macro providing a compile-time quicksort function for arrays of any type and length."
+description = "Implements a macro providing a compile-time quicksort function for arrays of any length, containing any Copy type that derives or implements PartialOrd."
 repository = "https://github.com/slightlyoutofphase/staticsort"
 documentation = "https://docs.rs/staticsort/"
 license = "MIT OR Apache-2.0"

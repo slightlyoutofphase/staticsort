@@ -9,7 +9,7 @@ macro_rules! staticsort {
     match $len {
       0 => $values,
       _ => {
-        #[inline(always)]
+        #[inline]
         const fn static_sort(
           mut values: [$type; $len],
           mut low: isize,

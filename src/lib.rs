@@ -1,3 +1,4 @@
+#![no_std]
 #![feature(const_fn, const_if_match, const_loop)]
 
 /// This macro takes the following parameters in the order they're listed:

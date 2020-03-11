@@ -2,8 +2,8 @@
 #![feature(const_fn, const_if_match, const_loop)]
 
 /// This macro takes the following parameters in the order they're listed: type to sort, index to
-/// start at, index to end at, and either the name of an existing `const` or `static` array variable
-/// or just a directly-passed "anonymous" array.
+/// start at, index to end at, and either the name of an existing `const` array variable or just a
+/// a directly-passed "anonymous" array.
 #[macro_export]
 macro_rules! staticsort {
   ($type:ty, $low:expr, $high:expr, $values:expr) => {{

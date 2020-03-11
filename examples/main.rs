@@ -11,21 +11,20 @@ static Y: [f64; 12] = [
 ];
 
 // The macro takes the following parameters in the order they're
-// listed: type to sort, index to start at, index to end at, total
-// array length, and either the name of an existing const / static
-// array variable or a directly-passed "anonymous" array.
+// listed: type to sort, index to start at, index to end at, and
+// either the name of an existing const or static array variable
+// or just a directly-passed "anonymous" array.
 
 // Sort all of X:
-static XX: [usize; 12] = staticsort!(usize, 0, 11, 12, X);
+static XX: [usize; 12] = staticsort!(usize, 0, 11, X);
 // Just sort half of Y:
-static YY: [f64; 12] = staticsort!(f64, 0, 6, 12, Y);
+static YY: [f64; 12] = staticsort!(f64, 0, 6, Y);
 // Sort all of an array that's the same as X, but passed
 // directly as a parameter:
 static ZZ: [usize; 12] = staticsort!(
   usize,
   0,
   11,
-  12,
   [1, 6, 2, 5, 3, 4, 7, 12, 8, 11, 9, 10]
 );
 

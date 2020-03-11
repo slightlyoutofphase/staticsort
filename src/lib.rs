@@ -25,10 +25,10 @@ macro_rules! staticsort {
             let mut j = high;
             let p = values[(low + ((high - low) >> 1)) as usize];
             loop {
-              while p > values[i as usize] {
+              while values[i as usize] < p {
                 i += 1;
               }
-              while p < values[j as usize] {
+              while values[j as usize] > p {
                 j -= 1;
               }
               if i <= j {

@@ -5,11 +5,11 @@
 [Rustc Version nightly]: https://img.shields.io/badge/rustc-nightly-lightgray.svg
 [![Build Status](https://travis-ci.com/slightlyoutofphase/staticsort.svg?branch=master)](https://travis-ci.com/slightlyoutofphase/staticsort)
 
-Implements a macro providing a compile-time quicksort function for arrays of any length, containing any primitive Copy type with a PartialOrd implementation.
+Implements a macro providing a compile-time quicksort function for arrays of any length, containing any primitive `Copy` type with a `PartialOrd` implementation.
 
 Contributions/suggestions/etc. very welcome!
 
-**Minimum supported Rust version:** due to the use of unstable const fn features, this is a nightly-only crate at the moment.
+**Minimum supported Rust version:** due to the use of unstable `const fn` features, this is a nightly-only crate at the moment.
 
 Fully `#![no_std]` compatible by default.
 
@@ -30,8 +30,8 @@ const Y: [f64; 12] = [
 
 // The macro takes the following parameters in the order they're
 // listed: type to sort, index to start at, index to end at, and
-// either the name of an existing const array variable or just a
-// directly-passed "anonymous" array.
+// either the name of an existing `const` array variable or just
+// a directly-passed "anonymous" array.
 
 // Sort all of X:
 static XX: [usize; 12] = staticsort!(usize, 0, 11, X);

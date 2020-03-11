@@ -7,15 +7,16 @@
 #[macro_export]
 macro_rules! staticsort {
   ($type:ty, $low:expr, $high:expr, $values:expr) => {{
-    match $values.len() {
+    const LEN: usize = $values.len();
+    match LEN {
       0 => $values,
       _ => {
         #[inline]
         const fn static_sort(
-          mut values: [$type; $values.len()],
+          mut values: [$type; LEN],
           mut low: isize,
           mut high: isize,
-        ) -> [$type; $values.len()]
+        ) -> [$type; LEN]
         {
           if high - low <= 0 {
             return values;

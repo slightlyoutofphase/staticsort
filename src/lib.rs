@@ -92,9 +92,9 @@ impl_static_sorter!(f64);
 macro_rules! staticsort {
   ($type:ty, $low:expr, $high:expr, $values:expr) => {{
     const LEN: usize = $values.len();
-    match LEN {
-      0 => $values,
-      _ => $crate::__StaticSorter::<$type, LEN>::__static_sort($values, $low, $high),
-    }
+    [
+     $values,
+     $crate::__StaticSorter::<$type, LEN>::__static_sort($values, $low, $high)
+    ][(!(LEN == 0)) as usize]
   };};
 }

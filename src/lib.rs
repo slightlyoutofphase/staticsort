@@ -94,7 +94,7 @@ macro_rules! staticsort {
     const LEN: usize = $values.len();
     match LEN {
       0 => $values,
-      _ => $crate::__StaticSorter::<$type, LEN>::static_sort($values, $low, $high),
+      _ => $crate::__StaticSorter::<$type, LEN>::__static_sort($values, $low, $high),
     }
   };};
 }

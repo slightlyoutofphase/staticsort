@@ -16,8 +16,6 @@ Fully `#![no_std]` compatible by default.
 A basic usage example:
 
 ```rust
-#![feature(const_fn, const_if_match, const_loop)]
-
 use staticsort::staticsort;
 
 const X: [usize; 12] = [1, 6, 2, 5, 3, 4, 7, 12, 8, 11, 9, 10];

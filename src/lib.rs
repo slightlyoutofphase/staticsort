@@ -19,8 +19,10 @@ macro_rules! impl_static_sorter {
         mut values: [$type; N],
         mut low: isize,
         mut high: isize,
-      ) -> [$type; N] {
-        if high - low <= 0 {
+      ) -> [$type; N]
+      {
+        let range = high - low;
+        if range <= 0 || range >= values.len() as isize {
           return values;
         }
         loop {
@@ -92,9 +94,6 @@ impl_static_sorter!(f64);
 macro_rules! staticsort {
   ($type:ty, $low:expr, $high:expr, $values:expr) => {{
     const LEN: usize = $values.len();
-    [
-     $values,
-     $crate::__StaticSorter::<$type, LEN>::__static_sort($values, $low, $high)
-    ][(!(LEN == 0)) as usize]
+    $crate::__StaticSorter::<$type, LEN>::__static_sort($values, $low, $high)
   };};
 }

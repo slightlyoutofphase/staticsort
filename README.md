@@ -13,6 +13,9 @@ Contributions/suggestions/etc. very welcome!
 
 Fully `#![no_std]` compatible by default.
 
+**Note:** as of version 0.3.0, specifying `#![feature(const_fn, const_if_match, const_loop)]` locally in your own source is no
+longer necessary to use the macro.
+
 A basic usage example:
 
 ```rust

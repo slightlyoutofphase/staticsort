@@ -1,10 +1,10 @@
 #![no_std]
 #![allow(incomplete_features)]
-#![feature(const_fn, const_fn_floating_point_arithmetic, const_generics)]
+#![feature(const_fn_floating_point_arithmetic, const_generics)]
 
 #[doc(hidden)]
-pub struct __StaticSorter<'a, T: 'a + Copy + PartialOrd, const N: usize> {
-  marker: core::marker::PhantomData<&'a T>,
+pub struct __StaticSorter<T: Copy + PartialOrd, const N: usize> {
+  marker: core::marker::PhantomData<T>,
 }
 
 /// This is a hack to work around fully generic (and non-primitive in general)
@@ -13,14 +13,13 @@ pub struct __StaticSorter<'a, T: 'a + Copy + PartialOrd, const N: usize> {
 #[doc(hidden)]
 macro_rules! impl_static_sorter {
   ($type:ty) => {
-    impl<const N: usize> __StaticSorter<'_, $type, N> {
+    impl<const N: usize> __StaticSorter<$type, N> {
       #[inline]
       pub const fn __static_sort(
         mut values: [$type; N],
         mut low: isize,
         mut high: isize,
-      ) -> [$type; N]
-      {
+      ) -> [$type; N] {
         let range = high - low;
         if range <= 0 || range >= values.len() as isize {
           return values;

@@ -42,4 +42,12 @@ fn main() {
   println!("ZZ: {:?}", ZZ);
   // Prints: ["me", "order", "please", "zzz"]
   println!("STRS: {:?}", STRS);
+
+  // Prints: (key, value) pairs: ([32, 42, 69, 82], ["monica", "elon", "mark", "andrzej"])
+  const AGES: [u8; 4] = [69, 42, 32, 82];
+  let names = ["mark", "elon", "monica", "andrzej"];
+  println!(
+    "(key, value) pairs: {:?}",
+    staticsort!(u8, 0, 3, AGES, names)
+  );
 }

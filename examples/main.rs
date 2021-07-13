@@ -50,4 +50,9 @@ fn main() {
     "(key, value) pairs: {:?}",
     staticsort!(u8, 0, 3, AGES, names)
   );
+
+  const SIZE: usize = 4;
+  let but_not_const_array: [u8; SIZE] = [3,1,2,0];
+  // but_not_const_array: [0, 1, 2, 3]
+  println!("but_not_const_array: {:?}", staticsort!(u8, 0, 3, but_not_const_array, len SIZE));
 }

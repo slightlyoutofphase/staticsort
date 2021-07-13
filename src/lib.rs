@@ -218,8 +218,14 @@ macro_rules! staticsort {
     const LEN: usize = $values.len();
     $crate::__StaticSorter::<$type, LEN>::__static_sort($values, $low, $high).0
   };};
+  ($type:ty, $low:expr, $high:expr, $values:expr, len $len:expr) => {{
+    $crate::__StaticSorter::<$type, $len>::__static_sort($values, $low, $high).0
+  };};
   ($type:ty, $low:expr, $high:expr, $values:expr, $keys:expr) => {{
     const LEN: usize = $values.len();
     $crate::__StaticSorter::<$type, LEN>::__static_co_sort($values, $keys, $low, $high)
+  };};
+  ($type:ty, $low:expr, $high:expr, $values:expr, $keys:expr, len $len:expr) => {{
+    $crate::__StaticSorter::<$type, $len>::__static_co_sort($values, $keys, $low, $high)
   };};
 }

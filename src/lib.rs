@@ -86,6 +86,91 @@ impl_static_sorter!(isize);
 impl_static_sorter!(f32);
 impl_static_sorter!(f64);
 
+use std::cmp::Ordering;
+
+/// This is wildly incorrect and will only work on ASCII strings
+/// in the same (lower/upper)case and numbers.
+const fn str_ord(a: &'static str, b: &'static str) -> Ordering {
+  let a_bytes = a.as_bytes();
+  let b_bytes = b.as_bytes();
+  let len = if a_bytes.len() > b_bytes.len() { b_bytes.len() } else { a_bytes.len() };
+  let mut i = 0;
+  loop {
+    if i == len {
+      break;
+    }
+    if a_bytes[i] > b_bytes[i] {
+      return Ordering::Greater;
+    } else if a_bytes[i] < b_bytes[i] {
+      return Ordering::Less;
+    }
+
+    i += 1;
+  }
+  if a_bytes.len() == b_bytes.len() {
+    return Ordering::Equal;
+  } else if a_bytes.len() > b_bytes.len() {
+    return Ordering::Greater;
+  } else {
+    return Ordering::Less;
+  }
+}
+
+impl<const N: usize> __StaticSorter<&'static str, N> {
+  #[inline]
+  pub const fn __static_sort(
+    mut values: [&'static str; N],
+    mut low: isize,
+    mut high: isize,
+  ) -> [&'static str; N] {
+    let range = high - low;
+    if range <= 0 || range >= values.len() as isize {
+      return values;
+    }
+    loop {
+      let mut i = low;
+      let mut j = high;
+      let p = values[(low + ((high - low) >> 1)) as usize];
+      loop {
+        while str_ord(values[i as usize],p) == Ordering::Less {
+          i += 1;
+        }
+        while str_ord(values[j as usize], p) == Ordering::Greater {
+          j -= 1;
+        }
+        if i <= j {
+          if i != j {
+            let q = values[i as usize];
+            values[i as usize] = values[j as usize];
+            values[j as usize] = q;
+          }
+          i += 1;
+          j -= 1;
+        }
+        if i > j {
+          break;
+        }
+      }
+      if j - low < high - i {
+        if low < j {
+          values = Self::__static_sort(values, low, j);
+        }
+        low = i;
+      } else {
+        if i < high {
+          values = Self::__static_sort(values, i, high)
+        }
+        high = j;
+      }
+      if low >= high {
+        break;
+      }
+    }
+    values
+  }
+}
+
+
 /// This macro takes the following parameters in the order they're listed: type to sort, index to
 /// start at, index to end at, and either the name of an existing `const` array variable or just a
 /// a directly-passed "anonymous" array.

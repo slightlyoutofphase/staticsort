@@ -86,9 +86,14 @@ impl_static_sorter!(isize);
 impl_static_sorter!(f32);
 impl_static_sorter!(f64);
 
-use std::cmp::Ordering;
+enum Ordering {
+  /// Yeah it should be called smaller not less imo
+  Smaller,
+  Equal,
+  Greater
+}
 
-/// This is wildly incorrect and will only work on ASCII strings
+/// This is wildly unsound and will only work on ASCII strings
 /// in the same (lower/upper)case and numbers.
 const fn str_ord(a: &'static str, b: &'static str) -> Ordering {
   let a_bytes = a.as_bytes();
@@ -102,17 +107,42 @@ const fn str_ord(a: &'static str, b: &'static str) -> Ordering {
     if a_bytes[i] > b_bytes[i] {
       return Ordering::Greater;
     } else if a_bytes[i] < b_bytes[i] {
-      return Ordering::Less;
+      return Ordering::Smaller;
     }
 
     i += 1;
   }
-  if a_bytes.len() == b_bytes.len() {
-    return Ordering::Equal;
+  return if a_bytes.len() == b_bytes.len() {
+    Ordering::Equal
   } else if a_bytes.len() > b_bytes.len() {
-    return Ordering::Greater;
+    Ordering::Greater
   } else {
-    return Ordering::Less;
+    Ordering::Smaller
+  }
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  fn ord_eq(a: Ordering, b: Ordering) -> bool {
+    match (a,b) {
+      (Ordering::Greater, Ordering::Greater) => true,
+      (Ordering::Smaller, Ordering::Smaller) => true,
+      (Ordering::Equal, Ordering::Equal) => true,
+      _ => false
+    }
+  }
+
+  #[test]
+  fn test_str_ord() {
+    assert!(ord_eq(str_ord("a", "z"), Ordering::Smaller));
+
+    assert!(ord_eq(str_ord("aa", "aa"), Ordering::Equal));
+    assert!(ord_eq(str_ord("a", "aa"), Ordering::Smaller));
+    assert!(ord_eq(str_ord("aa", "a"), Ordering::Greater));
+
+    assert!(ord_eq(str_ord("ba", "aa"), Ordering::Greater));
   }
 }
 
@@ -132,10 +162,10 @@ impl<const N: usize> __StaticSorter<&'static str, N> {
       let mut j = high;
       let p = values[(low + ((high - low) >> 1)) as usize];
       loop {
-        while str_ord(values[i as usize],p) == Ordering::Less {
+        while let Ordering::Smaller = str_ord(values[i as usize],p) {
           i += 1;
         }
-        while str_ord(values[j as usize], p) == Ordering::Greater {
+        while let Ordering::Greater = str_ord(values[j as usize], p) {
           j -= 1;
         }
         if i <= j {

@@ -3,7 +3,7 @@
 [Latest Version]: https://img.shields.io/crates/v/staticsort.svg
 [crates.io]: https://crates.io/crates/staticsort
 [Rustc Version nightly]: https://img.shields.io/badge/rustc-nightly-lightgray.svg
-[![Build Status](https://travis-ci.com/slightlyoutofphase/staticsort.svg?branch=master)](https://travis-ci.com/slightlyoutofphase/staticsort)
+[![Build status](https://ci.appveyor.com/api/projects/status/7avl6fvi0o0y0yv3/branch/master?svg=true)](https://ci.appveyor.com/project/slightlyoutofphase/staticsort/branch/master)
 
 Implements a macro providing a compile-time quicksort function for arrays of any length, containing any primitive `Copy` type with a `PartialOrd` implementation.
 

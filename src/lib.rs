@@ -1,6 +1,6 @@
 #![no_std]
 #![allow(incomplete_features)]
-#![feature(const_fn_floating_point_arithmetic, const_generics)]
+#![feature(const_fn_floating_point_arithmetic)]
 
 #[doc(hidden)]
 pub struct __StaticSorter<T: Copy + PartialOrd, const N: usize> {
@@ -94,5 +94,5 @@ macro_rules! staticsort {
   ($type:ty, $low:expr, $high:expr, $values:expr) => {{
     const LEN: usize = $values.len();
     $crate::__StaticSorter::<$type, LEN>::__static_sort($values, $low, $high)
-  };};
+  }};
 }

@@ -1,6 +1,10 @@
 #![no_std]
 #![allow(incomplete_features)]
-#![feature(const_fn_floating_point_arithmetic)]
+#![feature(
+  adt_const_params,
+  const_fn_floating_point_arithmetic,
+  generic_const_exprs
+)]
 
 #[doc(hidden)]
 pub struct __StaticSorter<T: Copy + PartialOrd, const N: usize> {

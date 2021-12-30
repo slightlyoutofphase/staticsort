@@ -4,6 +4,7 @@
 [crates.io]: https://crates.io/crates/staticsort
 [Rustc Version nightly]: https://img.shields.io/badge/rustc-nightly-lightgray.svg
 [![Build status](https://ci.appveyor.com/api/projects/status/7avl6fvi0o0y0yv3/branch/master?svg=true)](https://ci.appveyor.com/project/slightlyoutofphase/staticsort/branch/master)
+[![docs.rs](https://docs.rs/staticsort/badge.svg)](https://docs.rs/staticsort/)
 
 Implements a macro providing a compile-time quicksort function for arrays of any length, containing any primitive `Copy` type with a `PartialOrd` implementation.
 
